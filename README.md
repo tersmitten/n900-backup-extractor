@@ -28,13 +28,13 @@ pip install pysqlite
 
 ## Usage
 
-### osso-abook-export.py
+### osso-abook-export.py ([see](http://blog.tersmitten.nl/how-to-export-your-contacts-from-a-n900-backup-directory.html))
 
 ```
 python osso-abook-export.py <path to addressbook.db>
 ```
 
-### rtcom-eventlogger-export.py
+### rtcom-eventlogger-export.py ([see](http://blog.tersmitten.nl/how-to-export-your-text-messages-from-a-n900-backup-directory.html))
 
 ```
 python rtcom-eventlogger-export.py <path to el-v1.db> <path to csv file>
