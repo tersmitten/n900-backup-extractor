@@ -7,23 +7,22 @@ import os
 import vobject
 from bsddb3 import db
 
+import utils
+
 if len(sys.argv) != 2:
-  print
-  print 'Usage:'
-  print '%s [path to addressbook.db]' % sys.argv[0]
-  print
-  sys.exit(1)
+  utils.show_usage('%s [path to addressbook.db]' % sys.argv[0])
 
 fileName = sys.argv[1].strip()
+vcardsDir = 'vcards'
 
 addressBookDb = db.DB()
 try:
-  # Try to open db file
-  addressBookDb.open(fileName, None, db.DB_HASH, db.DB_DIRTY_READ)
+  # Create the vcards directory (if needed)
+  if not os.path.exists(vcardsDir):
+    os.makedirs(vcardsDir)
 
-  # Create the vcards directory
-  if not os.path.exists('vcards'):
-    os.makedirs('vcards')
+  # Try to open addressbook database
+  addressBookDb.open(fileName, None, db.DB_HASH, db.DB_DIRTY_READ)
 
   cursor = addressBookDb.cursor()
   record = cursor.first()
@@ -48,15 +47,17 @@ try:
       vCardName = str(parsedVCard.n.value).strip()
       # Strip slashes from file names to make them safe
       vCardName = str.replace(vCardName, '/', '_')
+      # Construct file name
+      vCardName = '%s/%s.vcf' % (vcardsDir, vCardName)
 
       # Open vcard for writing
-      with open('vcards/%s.vcf' % vCardName, 'w') as fd:
+      with open(vCardName, 'w') as fd:
         fd.write(vCard)
       fd.close()
 
-except db.DBNoSuchFileError:
-  print
-  print 'Error:'
-  print 'Could not open \'%s\'' % fileName
-  print
-  sys.exit(1)
+except OSError, err:
+  utils.show_error('Could not create \'%s\' folder: %s' % (vcardsDir, err))
+except db.DBError, err:
+  utils.show_error('BerkeleyDB said: %s' % err)
+except IOError, err:
+  utils.show_error('Could not open csv file \'%s\' for writing: %s' % (vCardName, err))
