@@ -3,6 +3,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 import vobject
 from bsddb3 import db
 
@@ -19,6 +20,10 @@ addressBookDb = db.DB()
 try:
   # Try to open db file
   addressBookDb.open(fileName, None, db.DB_HASH, db.DB_DIRTY_READ)
+
+  # Create the vcards directory
+  if not os.path.exists("vcards"):
+    os.makedirs("vcards")
 
   cursor = addressBookDb.cursor()
   record = cursor.first()
@@ -40,7 +45,7 @@ try:
 
     # Not all entries have a n(ame) attribute
     if hasattr(parsedVCard, 'n'):
-      vCardName = str(parsedVCard.n.value).strip()
+      vCardName = str.replace(str(parsedVCard.n.value), '/', '_').strip()
 
       # Open vcard for writing
       with open('vcards/%s.vcf' % vCardName, 'w') as fd:
