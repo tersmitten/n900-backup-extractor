@@ -8,10 +8,10 @@ import vobject
 from bsddb3 import db
 
 if len(sys.argv) != 2:
-  print ""
-  print "Usage:"
-  print "%s [path to addressbook.db]" % sys.argv[0]
-  print ""
+  print
+  print 'Usage:'
+  print '%s [path to addressbook.db]' % sys.argv[0]
+  print
   sys.exit(1)
 
 fileName = sys.argv[1].strip()
@@ -22,8 +22,8 @@ try:
   addressBookDb.open(fileName, None, db.DB_HASH, db.DB_DIRTY_READ)
 
   # Create the vcards directory
-  if not os.path.exists("vcards"):
-    os.makedirs("vcards")
+  if not os.path.exists('vcards'):
+    os.makedirs('vcards')
 
   cursor = addressBookDb.cursor()
   record = cursor.first()
@@ -53,8 +53,8 @@ try:
       fd.close()
 
 except db.DBNoSuchFileError:
-  print ""
-  print "Error:"
-  print "Could not open '%s'" % fileName
-  print ""
+  print
+  print 'Error:'
+  print 'Could not open \'%s\'' % fileName
+  print
   sys.exit(1)
