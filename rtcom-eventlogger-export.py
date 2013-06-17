@@ -2,6 +2,10 @@
 
 # -*- coding: utf-8 -*-
 
+"""
+Reads the eventlogger database (el-v1.db) and writes the text messages to a CSV file.
+"""
+
 import sys
 import sqlite3
 import csv

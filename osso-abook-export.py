@@ -2,6 +2,11 @@
 
 # -*- coding: utf-8 -*-
 
+"""
+Extracts vcard data from the addressbook database (addressbook.db) and
+writes it as separate vcards to a folder (./vcards).
+"""
+
 import sys
 import os
 import vobject
