@@ -6,6 +6,7 @@ import sys
 import os
 import vobject
 from bsddb3 import db
+import slugify
 
 import utils
 
@@ -44,9 +45,7 @@ try:
 
     # Not all entries have a n(ame) attribute
     if hasattr(parsedVCard, 'n'):
-      vCardName = str(parsedVCard.n.value).strip()
-      # Strip slashes from file names to make them safe
-      vCardName = str.replace(vCardName, '/', '_')
+      vCardName = slugify.slugify(unicode(parsedVCard.n.value))
       # Construct file name
       vCardName = '%s/%s.vcf' % (vcardsDir, vCardName)
 

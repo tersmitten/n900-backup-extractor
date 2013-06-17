@@ -14,6 +14,7 @@ export BERKELEYDB_DIR=/usr/include/
 ```
 pip install bsddb3
 pip install vobject
+pip install slugify
 ```
 
 ### rtcom-eventlogger-export.py
