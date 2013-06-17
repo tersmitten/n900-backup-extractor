@@ -45,7 +45,9 @@ try:
 
     # Not all entries have a n(ame) attribute
     if hasattr(parsedVCard, 'n'):
-      vCardName = str.replace(str(parsedVCard.n.value), '/', '_').strip()
+      vCardName = str(parsedVCard.n.value).strip()
+      # Strip slashes from file names to make them safe
+      vCardName = str.replace(vCardName, '/', '_')
 
       # Open vcard for writing
       with open('vcards/%s.vcf' % vCardName, 'w') as fd:
