@@ -46,7 +46,11 @@ try:
   # Write vcard strings
   for vCard in vCards:
 
-    parsedVCard = vobject.readOne(vCard)
+    try:
+      parsedVCard = vobject.readOne(vCard)
+    except Exception as err:
+      print >> sys.stderr, "Failed to parse vCard data: %s\nvCard data:\n%s" % (err, vCard)
+      continue
 
     # Not all entries have a n(ame) attribute
     if hasattr(parsedVCard, 'n'):
