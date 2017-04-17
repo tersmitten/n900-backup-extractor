@@ -121,7 +121,9 @@ def main():
         connection.row_factory = sqlite3.Row
         cursor = connection.cursor()
 
-        # free_text is NULL when the SMS has an attachment
+        # free_text is NULL when the SMS has an attachment.
+        # https://github.com/jherland/sms_query/blob/master/sms_query.py
+        # is a useful reference for the database schema
         sql = '''
         SELECT
             CASE

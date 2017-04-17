@@ -19,13 +19,7 @@ pip install slugify
 
 ### rtcom-eventlogger-export.py
 
-```
-sudo apt-get install libsqlite3-dev
-```
-
-```
-pip install pysqlite
-```
+Python 3 comes with everything you need.
 
 ## Usage
 
@@ -37,6 +31,9 @@ python osso-abook-export.py <path to addressbook.db>
 
 ### rtcom-eventlogger-export.py ([see](http://blog.tersmitten.nl/how-to-export-your-text-messages-from-a-n900-backup-directory.html))
 
-```
-python rtcom-eventlogger-export.py <path to el-v1.db> <path to csv file>
+```bash
+# for CSV
+./rtcom-eventlogger-export.py --format csv <path to el-v1.db> <path to csv file>
+# for XML
+./rtcom-eventlogger-export.py --format xml <path to el-v1.db> <path to xml file>
 ```
